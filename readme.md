@@ -1,10 +1,10 @@
-#EXPRESS.JS
+## EXPRESS.JS
 [![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
 
   Fast, unopinionated, minimalist web framework for [node](http://nodejs.org).
 
 
-#description
+## description
 
 This application 75% complete, buid using mysql and express.js
 
@@ -14,7 +14,7 @@ login admin
 dickyperdian
 asder123
 
-#config database
+## config database
 create folder config
         --index.js
 
