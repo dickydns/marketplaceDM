@@ -1,0 +1,183 @@
+<% include ../component/adminTop %>
+<!-- Overlay for fixed sidebar -->
+<div class="sidebar-overlay"></div>
+
+<% include ../component/slidebarAdmin %>
+
+<div class="wrapper" style="width:100%;">
+    <!-- Sidebar Constructor -->
+    <div class="constructor" style="padding:15px; width:100% !important;">
+        <div class="ProductDetail">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-9">
+                                    <h5>Confirm Order</h5>
+                                </div>
+                                <div class="col-xs-3">
+                                    <a class="btn btn-default pull-right" href="/admin/productOrder">Back to Product Order</a> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% if (messages.message == ' ') { %>
+                        
+                    <% } else{ %>
+                        <div class="alert alert-success col-sm-12"><%= messages.message %></div>
+                    <% } %>
+                    <div class="panel-body" style="padding:20px; border:1px solid #f1f1f1;">
+                    
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <% for(var i=0; i < detailConfirm.length; i++) { %>
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        <div style="width:100%; height:100px; overflow:hidden;">
+                                            <a href="/images/<%= detailConfirm[i].picture %>" target="_blank"> <img  class="img-responsive" src="/images/<%= detailConfirm[i].picture %>"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <h5 class="product-name"><strong><a href="/detail/<%= detailConfirm[i].id_product %>"><%= detailConfirm[i].name %></a></strong></h4><h4><small><%= detailConfirm[i].category_name %></small></h5>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="col-xs-12 text-right">
+                                            <% var totalPrice = detailConfirm[i].price*detailConfirm[i].total  %>
+                                            <label class="label label-default"> Price * Qualiy</label> <br> <%= detailConfirm[i].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %> *  <%= detailConfirm[i].total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %>
+                                            <hr/>
+                                            <h6><strong>Rp. <%= totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")  %> </strong></h6>
+                                            <br/>
+                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr>
+                            <% } %>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div style="padding:15px; width:100%; background:#f1f1f1;">
+                                <!-- row -->
+                                <div class="row">
+                                    <div class="col-lg-6"> <h6> Status Payment </h6></div>
+                                    <div class="col-lg-6">
+                                            <% if(statusPayment.statusPayment === '0'){ %>
+                                                <span class="label label-danger"><i class="fa fa-close"></i> UNPAID or PENDING</span>
+                                            <% } else{ %>   
+                                                <span class="label label-success"><i class="fa fa-credit-card"></i> PAID </span>
+                                            <% } %>
+                                    </div>
+                                </div> 
+                                <!-- end rows -->
+                                    
+                                <!-- row -->
+                                <div class="row">
+                                    <div class="col-lg-6"> <h6> Invoice Number </h6></div>
+                                    <div class="col-lg-6">
+                                        <span class="label label-default"><%= invoiceNumber %></span>
+                                    </div>
+                                </div> 
+                                <!-- end rows -->
+
+                                <!-- row -->
+                                <div class="row">
+                                        <div class="col-lg-6"> <h6> Payment Slip Picture </h6></div>
+                                        <div class="col-lg-6">
+                                            <% if(orderData[0].paymentSlip === "" || orderData[0].paymentSlip === null){ %>
+                                                <span class="label label-default">None</span>
+                                            <% } else{ %>
+                                                <span class="label label-default"><a href="/images/payment/<%= orderData[0].paymentSlip %>" target="_blank">Already</a></span>
+                                            <% } %>
+
+                                        </div>
+                                </div> 
+                                <!-- end rows -->
+
+                                <!-- row -->
+                                <div class="row">
+                                     <div class="col-lg-6"> <h6> Total Price </h6></div>
+                                    <div class="col-lg-6">
+                                        <span class="label label-default">Rp <%= totalPaymentAll[0].total.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span>
+                                    </div>
+                                </div> 
+                                <!-- end rows -->
+                            </div>
+                            <div class="bg-danger" style="padding:15px;">
+                                    <!-- row -->
+                                    <div class="row">
+                                        <center>
+                                            <% if(statusPayment.statusPayment === '0'){ %>
+                                            <form action="/admin/confirmOrder/<%= invoiceNumber %>/<%= orderData[0].id_user %>/<%= totalBuy[0].totalBuy %>" method="POST">
+                                                <button class="btn btn-success" type="submit" onclick="javascript: return confirm('Confirm Order ?')">Confirm & Proccess Order</button>
+                                            </form>
+                                            <% } else{ %>   
+                                                <button href="" data-toggle="modal" data-target="#myModal" class="btn btn-success">Input Delivery Number / Update</button>
+                                            <% } %>
+                                        </center>
+                                    </div> 
+                                    <!-- end rows -->
+                            </div>
+                            <%  if(shippingInfo.length > 0){ %>
+                            <div style="padding:15px; width:100%; background:#f1f1f1;">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        Services 
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="label label-default"><%=  shippingInfo[0].services %></span>
+                                    </div>                                
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        Services Number 
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span class="label label-default"><%=  shippingInfo[0].servicesNum %></span>
+                                    </div>                                
+                                </div>
+                               
+
+                            </div>
+                            <% } else { } %>
+                        </div>
+                    </div>
+                    
+                        
+                    </div>
+
+                </div>
+        </div>  
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Input Delivery Number / Update</h4>
+            </div>
+            <form action="/admin/servicesAdd/<%= invoiceNumber %>/<%= orderData[0].id_user %>" method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="services">Services</label>
+                        <input type="text" class="form-control" name="services" id="services" placeholder="Services">
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryNum">Delivery Number</label>
+                        <input type="text" class="form-control" name="deliveryNum" id="deliveryNum" placeholder="Delivery Number">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save </button>
+                </div>
+            </form>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+<% include ../component/adminBottom %>

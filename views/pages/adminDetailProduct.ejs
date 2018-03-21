@@ -1,0 +1,90 @@
+
+    
+<% include ../component/adminTop %>
+<!-- Overlay for fixed sidebar -->
+<div class="sidebar-overlay"></div>
+
+<% include ../component/slidebarAdmin %>
+
+<div class="wrapper" style="width:100%;">
+    <!-- Sidebar Constructor -->
+    <div class="constructor" style="padding:15px; width:100% !important;">
+        <div class="ProductDetail">
+
+
+            <div class="panel panel-default">
+                <% if (messages.message == ' ') { %>
+                        
+                <% } else{ %>
+                    <div class="alert alert-success col-sm-12"><%= messages.message %></div>
+                <% } %>
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h5><%= orderProduct[0].name %></h5>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <a href="/admin/product" class="btn btn-default">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding:20px;">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="productImage">
+                                <a href="/images/<%= orderProduct[0].picture %>" target="_output">
+                                    <img src="/images/<%= orderProduct[0].picture %>" class="img-rounded" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="formEdited">
+                                <form role="form" id="uploadForm" enctype="multipart/form-data" action="/admin/updatePrduct/<%= orderProduct[0].id_product %>"  method="POST"  >
+                                    <div class="form-group">
+                                        <label for="name">Name Product</label>
+                                        <input value="<%= orderProduct[0].name %>" name="name" type="text" class="form-control" id="name" placeholder="Name Product">
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="price">Price</label>
+                                        <input value="<%= orderProduct[0].price %>" name="price" type="text" class="form-control" id="price"  placeholder="Price">    
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stock">Stock</label>
+                                        <input value="<%= orderProduct[0].stock %>" name="stock" type="number" class="form-control" id="stock"  placeholder="stock">    
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="category">Category</label>
+                                        <select class="form-control" id="category" name="category">
+                                            <option value="<%= orderProduct[0].category_id %>"><%= orderProduct[0].category_name %></option>
+                                            <% for(var i=0; i < category.length; i++) { %>
+                                                <option value="<%= category[i].category_id %>"><%= category[i].category_name %></option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea name="description" class="form-control" id="description" rows="5"><%= orderProduct[0].description %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="picture">Picture</label>
+                                        <input name="picture" accept="image/*" type="file" class="form-control-file" id="picture" >
+                                        <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+<% include ../component/adminBottom %>

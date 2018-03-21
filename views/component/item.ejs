@@ -1,0 +1,28 @@
+<% for(var i=0; i < results.length; i++) { %>
+    <li  class="products__item"> 
+        <div style="height:200px !Important; overflow:hidden;">
+        <a  class="products__foto" style="overflow:hidden;" href="/detail/<%= results[i].id_product %>" > 
+            <img height="100%" src="/images/<%= results[i].picture %>"  alt=""> 
+        </a>
+        </div>
+        <h5 class="products_(_name"><a href="/detail/<%= results[i].id_product %>"><%= results[i].name.substring(0, 27) %><% if(results[i].name.length >= 27){%>...<% } else { }%></a></h5>
+        <div class="products__category"><a href="#"><%= results[i].category_name %></a></div>
+        <div class="products__inner clearfix"> <span class="products__price-new">Rp. <%= results[i].price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %></span> 
+        <ul class="rating">
+            <label for=""><%= results[i].stock %></label> 
+        </ul>
+      </div>
+      <footer class="products-btns clearfix">
+        <% if(user.id_user > 0){ %>
+          <a href="/add_cart/<%= results[i].id_product %>" class="products-btns__btn products-btns__add"><i class="icon icon-bag color_primary" aria-hidden="true"></i> Add to cart</a>
+       
+        <% } else {%>
+          <a data-toggle="modal" data-target="#login" href="/login" class="products-btns__btn products-btns__add"><i class="icon icon-bag color_primary" aria-hidden="true"></i> Login First</a>
+           
+        <% } %>
+        <span class="products-btns__other pull-right">
+        <button class="products-btns__btn"><i class="icon icon-shuffle"></i></button>
+        
+        </span> </footer>
+    </li>
+    <% } %>

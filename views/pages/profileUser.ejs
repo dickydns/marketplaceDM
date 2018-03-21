@@ -1,0 +1,422 @@
+<%  include ../component/header %>
+<%  include ../component/navbar %>
+
+
+
+
+
+<!-- Loader -->
+<div id="page-preloader"><span class="spinner"></span></div>
+<!-- Loader end -->
+
+<div class="layout-theme animated-css"  data-header="sticky" data-header-top="200"  > 
+  
+  <!-- Start Switcher -->
+  <div class="switcher-wrapper">
+    <div class="demo_changer">
+      <div class="demo-icon customBgColor"><i class="fa fa-cog fa-spin fa-2x"></i></div>
+      <div class="form_holder">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="predefined_styles">
+              <div class="skin-theme-switcher">
+                <h4>Color</h4>
+                <a href="javascript:void(0);" data-switchcolor="color1" class="styleswitch" style="background-color:#fe5656;"> </a> <a href="javascript:void(0);" data-switchcolor="color2" class="styleswitch" style="background-color:#4fb0fd;"> </a> <a href="javascript:void(0);" data-switchcolor="color3" class="styleswitch" style="background-color:#ffc73c;"> </a> <a href="javascript:void(0);" data-switchcolor="color4" class="styleswitch" style="background-color:#ff8300;"> </a> <a href="javascript:void(0);" data-switchcolor="color5" class="styleswitch" style="background-color:#02cc8b;"> </a> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- End Switcher -->
+  
+  <div id="wrapper">
+    
+    
+    <div class="border-main">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="wrap-title-page">
+                  
+                </div>
+                <!-- end wrap-title-page --> 
+              </div>
+              <!-- end col --> 
+            </div>
+            <!-- end row -->
+         
+              
+            
+            <div class="section-area">
+                <div class="container_wrapped">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" href="#orderlist" role="tab" data-toggle="tab">Order List  <span class="label label-danger"><%= totalPurchase.length %></span> </a>
+                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#references" role="tab" data-toggle="tab">Password</a>
+                    </li>
+                </ul>
+                <br/>
+                <br/>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="profile">
+                            <% if (messages.message == ' ') { %>
+                           
+                                <% } else{ %>
+                                    <div class="alert alert-success col-sm-12 notice"><%= messages.message %></div>
+                                <% } %>
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5>Profile Detail</h5>
+                                        </div>
+                                        <div class="col-xs-6">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form role="form" action="/profileUser/updateUser/" method="POST">
+                                <div class="panel-body" style="padding:20px;">
+                                    <input type="hidden" name="state" value="profile">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" value="<%= userdata[0].username %>" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" name="name" id="name" value="<%= userdata[0].name %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">Province</label>
+                                        <select name="province" class="form-control" id="province" style="padding:0px 0px 0px 15px; margin:0px;">
+                                            <option value="<%= cityUser[0].idProvince %>"><%= cityUser[0].provinceName %></option>
+                                            <%  for(var i = 0; i < cityChoose.length; i++){ %>
+                                                <option value="<%= cityChoose[i].idProvince %>"><%= cityChoose[i].provinceName%></option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name">City</label>
+                                        <select name="city" class="form-control" id="city" style="padding:0px 0px 0px 15px; margin:0px;">
+                                            <option value="<%= cityUser[0].idCity %>"><%= cityUser[0].cityName %></option>
+                                            <%  for(var i = 0; i < cityChoose.length; i++){ %>
+                                                <option value="<%= cityChoose[i].idCity %>"><%= cityChoose[i].cityName%></option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                
+                                    <div class="form-group">
+                                            <label for="numberPhone">Number Phone</label>
+                                            <input type="text" class="form-control" name="numberPhone" id="numberPhone" value="<%= userdata[0].numberPhone %>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <textarea name="address" type="text" class="form-control"  maxlength="200" required><%= userdata[0].address %></textarea>
+                                    </div>
+                                    
+                                </div>
+                                <div class="panel-footer">
+                                    <button type="submit" class="btn btn-success btn-lg">Save</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        
+                    </div>
+                    
+
+                    
+                    <div role="tabpanel" class="tab-pane fade" id="orderlist">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5>Order List</h5>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding:20px;">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#orderList" role="tab" data-toggle="tab">All Order</a>
+                                    </li>
+                                    <li class="nav-item">
+                                            <a class="nav-link" href="#unpaid" role="tab" data-toggle="tab">Unpaid <span class="label label-danger"><%= productBuyUnpaid.length %> </span> </a>
+                                        </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#paid" role="tab" data-toggle="tab">Paid / Proccess <span class="label label-warning"><%= productBuyPaid.length %> </span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#success" role="tab" data-toggle="tab">Success <span class="label label-success"><%= productBuySuccess.length %> </span></a>
+                                    </li>
+                                </ul>
+                                <br/>
+                                <br/>
+                                <!-- Tab panes -->
+                                
+                                <div class="row">
+
+                                    <div class="col-lg-9">
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade in active" id="orderList">
+                                                <table class="table table-bordered table-striped">
+                                                    <%  include ../component/tablehead %>
+                                                    <tbody> 
+                                                        <!-- include -->
+                                                        <% var no=1; for(var i=0; i < productBuy.length; i++) { %>
+                                                            <% var allPrice = productBuy[i].price * productBuy[i].total;  %>
+                                                            <tr>
+                                                                <td><%= i+no %></td>
+                                                                <td>
+                                                                    <!-- 0 no - 1 yes -2 proccess -->
+                                                        
+                                                                    <% if(productBuy[i].statusPayment === '0'){ %>
+                                                                        <span class="label label-danger">Unpaid / Pending</span>
+                                                                    <% } else if(productBuy[i].statusPayment === '1'){ %>
+                                                                        <span class="label label-warning">Order already Proccess</span>
+                                                                    <% } else if(productBuy[i].statusPayment === '2'){ %>
+                                                                        <span class="label label-success">Transaction Sucess</span>
+                                                                    <% } else{ %>
+                                                                        <span class="label label-success">Paid</span>   
+                                                                    <% } %>
+                                                                </td>
+                                                                <td><a href="/profileUser/dataInvoice/<%= productBuy[i].numOrder  %>"  id="" class="openData btn"> <%= productBuy[i].numOrder%></a></td>
+                                                                <td>
+                                                                    <% if(productBuy[i].paymentSlip === "" || productBuy[i].paymentSlip === null){ %>
+                                                                        None
+                                                                    <%} else{%>
+                                                                        <a target="_blank" href="/images/payment/<%= productBuy[i].paymentSlip %>">Picture</a>
+                                                                    <% } %>
+                                                                </td>
+                                                               
+                                                            </tr>
+                                                            
+                                                        <% } %>
+                                                        <!-- exit -->
+                                                    </tbody>
+                                                </table>
+                                                
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade in " id="unpaid">
+                                            
+                                                <table class="table table-bordered table-striped">
+                                                    <%  include ../component/tablehead %>
+                                                    <tbody> 
+                                                        <!-- include -->
+                                                        <% var no=1; for(var i=0; i < productBuyUnpaid.length; i++) { %>
+                                                            <% var allPrice = productBuyUnpaid[i].price * productBuy[i].total;  %>
+                                                            <tr>
+                                                                <td><%= i+no %></td>
+                                                                <td>
+                                                                    <!-- 0 no - 1 yes -2 proccess -->
+                                                        
+                                                                    <% if(productBuyUnpaid[i].statusPayment === '0'){ %>
+                                                                        <span class="label label-danger">Unpaid / Pending</span>
+                                                                    <% } else if(productBuyUnpaid[i].statusPayment === '1'){ %>
+                                                                        <span class="label label-warning">Order already Proccess</span>
+                                                                    <% } else{ %>
+                                                                        <span class="label label-success">Paid</span>   
+                                                                    <% } %>
+                                                                </td>
+                                                                <td><a href="/profileUser/dataInvoice/<%= productBuyUnpaid[i].numOrder  %>"  id="" class="openData btn"> <%= productBuyUnpaid[i].numOrder%></a></td>
+                                                                <td>
+                                                                    <% if(productBuyUnpaid[i].paymentSlip === "" || productBuyUnpaid[i].paymentSlip === null){ %>
+                                                                        None
+                                                                    <%} else{%>
+                                                                        <a target="_blank" href="/images/payment/<%= productBuyUnpaid[i].paymentSlip %>">Picture</a>
+                                                                    <% } %>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                            
+                                                        <% } %>
+                                                        <!-- exit -->
+                                                    </tbody>
+                                                </table>
+
+
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade in " id="paid">
+
+                                                <table class="table table-bordered table-striped">
+                                                    <%  include ../component/tablehead %>
+                                                    <tbody> 
+                                                        <!-- include -->
+                                                        <% var no=1; for(var i=0; i < productBuyPaid.length; i++) { %>
+                                                            <% var allPrice = productBuyPaid[i].price * productBuyPaid[i].total;  %>
+                                                            <tr>
+                                                                <td><%= i+no %></td>
+                                                                <td>
+                                                                    <!-- 0 no - 1 yes -2 proccess -->
+                                                        
+                                                                    <% if(productBuyPaid[i].statusPayment === '0'){ %>
+                                                                        <span class="label label-danger">Unpaid / Pending</span>
+                                                                    <% } else if(productBuyPaid[i].statusPayment === '1'){ %>
+                                                                        <span class="label label-warning">Order already Proccess</span>
+                                                                    <% } else{ %>
+                                                                        <span class="label label-success">Paid</span>   
+                                                                    <% } %>
+                                                                </td>
+                                                                <td><a href="/profileUser/dataInvoice/<%= productBuyPaid[i].numOrder  %>"  id="" class="openData btn"> <%= productBuyPaid[i].numOrder%></a></td>
+                                                                <td>
+                                                                    <% if(productBuyPaid[i].paymentSlip === "" || productBuyPaid[i].paymentSlip === null){ %>
+                                                                        None
+                                                                    <%} else{%>
+                                                                        <a target="_blank" href="/images/payment/<%= productBuyPaid[i].paymentSlip %>">Picture</a>
+                                                                    <% } %>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                            
+                                                        <% } %>
+                                                        <!-- exit -->
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade in " id="success">
+
+                                                <table class="table table-bordered table-striped">
+                                                    <%  include ../component/tablehead %>
+                                                    <tbody> 
+                                                        <!-- include -->
+                                                        <% var no=1; for(var i=0; i < productBuySuccess.length; i++) { %>
+                                                            <% var allPrice = productBuySuccess[i].price * productBuySuccess[i].total;  %>
+                                                            <tr>
+                                                                <td><%= i+no %></td>
+                                                                <td>
+                                                                    <!-- 0 no - 1 yes -2 proccess -->
+                                                        
+                                                                    <span class="label label-success">Transaction Sucess</span>
+                                                                </td>
+                                                                <td><a href="/profileUser/dataInvoice/<%= productBuySuccess[i].numOrder  %>"  id="" class="openData btn"> <%= productBuySuccess[i].numOrder%></a></td>
+                                                                <td>
+                                                                    <% if(productBuySuccess[i].paymentSlip === "" || productBuySuccess[i].paymentSlip === null){ %>
+                                                                        None
+                                                                    <%} else{%>
+                                                                        <a target="_blank" href="/images/payment/<%= productBuySuccess[i].paymentSlip %>">Picture</a>
+                                                                    <% } %>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                            
+                                                        <% } %>
+                                                        <!-- exit -->
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="orderData" id="orderData">
+                                            <p> Customer privacy is a major priority at Best Buy, and we take great care to protect your information. The Best Buy Privacy Policy lays out the ways in which we gather and protect information, and how you can control your personal information. Read How Best Buy Interacts with Your Devices to learn more about our commitment to protecting your data and your privacy.</p>
+                                        </div>
+                                    </div>
+                                       
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div role="tabpanel" class="tab-pane fade" id="references">
+
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h5>Password</h5>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form  action="/profileUser/updatePassword/" method="POST" >
+                                <div class="panel-body" style="padding:20px;">
+                                      
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" name="password" maxlength="30" class="form-control" id="password">
+                                        </div>
+    
+                                        <div class="form-group">
+                                            <label for="password">Confirm Password</label>
+                                            <input type="password" name="confirm_password" maxlength="30" class="form-control" id="confirm_password" >
+                                        </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <button type="submit" class="btn btn-success btn-lg">Save</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+               
+            </div>
+            </div>
+            <!-- end section-area -->
+            
+            
+          </div>
+          <!-- end col --> 
+        </div>
+        <!-- end row --> 
+      </div>
+      <!-- end container --> 
+    </div>
+    <!--end border-main -->
+
+
+    <!-- social list client -->
+    <% include ../component/socialConnect %>
+    
+    <!-- footer / copyright -->
+    <% include ../component/copyright %>
+    
+    
+  <!-- end #wrapper --> 
+  
+</div>
+<!-- end layout-theme --> 
+
+<script>
+    var password = document.getElementById("password"), confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+    if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+        confirm_password.setCustomValidity('');
+    }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+    
+</script>
+<!-- end -->
+
+<% include ../component/footer %>

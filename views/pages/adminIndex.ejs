@@ -1,0 +1,51 @@
+
+    
+<% include ../component/adminTop %>
+<!-- Overlay for fixed sidebar -->
+<div class="sidebar-overlay"></div>
+
+<% include ../component/slidebarAdmin %>
+
+<div class="wrapper" style="width:100%;">
+    <!-- Sidebar Constructor -->
+    <div class="constructor" style="padding:15px; width:100% !important;">
+        <div class="ProductDetail">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="alert alert-success" role="alert">
+                        <center>   
+                            <span class="fa fa-shopping-cart fa-2x"></span>
+                            
+                            <b><%= totalSale.totalSale %></b>
+                            <hr/>
+                            <h5>Total Sale</h5>
+                        </center>
+                    </div>
+                </div>
+              
+                <div class="col-lg-4">
+                    <div class="alert alert-info" role="alert">
+                        <center>   
+                            <span class="fa fa-suitcase fa-2x"></span>
+                            <b>51</b>
+                            <hr/>
+                            <h5>All Product</h5>
+                        </center>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="alert alert-warning" role="alert">
+                        <center>
+                            <span class="fa fa-user fa-2x"></span>
+                            <b>51</b>
+                            <hr/>
+                            <h5>All User</h5>
+                        </center>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../component/adminBottom %>

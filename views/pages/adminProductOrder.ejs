@@ -1,0 +1,92 @@
+
+    
+<% include ../component/adminTop %>
+<!-- Overlay for fixed sidebar -->
+<div class="sidebar-overlay"></div>
+
+<% include ../component/slidebarAdmin %>
+
+<div class="wrapper" style="width:100%;">
+    <!-- Sidebar Constructor -->
+    <div class="constructor" style="padding:15px; width:100% !important;">
+        <div class="ProductDetail">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h5>Order Income</h5>
+                            </div>
+                            <div class="col-xs-6">
+                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body" style="padding:20px;">
+                    <div class="table-responsive">
+                            <table class="table table-bordered " >
+                                <thead >
+                                    <tr >
+                                        <th style="text-align:center; padding:10px; text-align:center;">No</th>
+                                        <th style="text-align:center; padding:10px;">Status</th>
+                                        <th style="text-align:center; padding:10px; text-align:center;">Invoice Number</th>
+                                        <th style="text-align:center; padding:10px; text-align:center;">Last Update</th>                                        
+                                        <th style="text-align:center; padding:10px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <% var no =1; for( var i = 0; i < orderProduct.length; i++){ %>
+                                    
+                                     <tr>
+                                         <td style="text-align:center;"><%= i+no %></td>
+                                         <!-- 0 no - 1 yes -2 proccess -->
+                                         <td style="text-align:center;">
+                                            <% if(orderProduct[i].paymentSlip === "" || orderProduct[i].paymentSlip === null){ %>
+                                                <span class="label label-danger">Unpaid</span>
+                                            <% } else{ %>
+                                                <span class="label label-success">Already Upload PaymentSlip</span>
+                                            <% } if(orderProduct[i].statusPayment === '1'){ %>
+                                                <span class="label label-warning">Order already Proccess</span>
+                                            <% } else if(orderProduct[i].statusPayment === '2'){ %>
+                                                <span class="label label-success">Transaction Sucess</span>
+                                            <% } %>
+                                        </td>
+                                         <td style="text-align:center; font-size:1.2em;">
+                                            <a href="/admin/adminConfirm/<%= orderProduct[i].numOrder %>/<%= orderProduct[i].id_user %>  " class="label label-default">
+                                             <%= orderProduct[i].numOrder %>
+                                            </a>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <% if(orderProduct[i].lastUpdate === '0000-00-00'){ %>
+                                                -
+                                            <% } else { %>                                            
+                                                <%= orderProduct[i].lastUpdate %>                                            
+                                            <% } %>
+                                        </td>
+                                         <td style="text-align:center;">
+                                            <a href="" class="btn btn-danger"> Delete </a>
+                                         </td>
+                                         
+                                     </tr>
+                                   <% } %>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                        <% if (messages.message == ' ') { %>
+                            
+                        <% } else{ %>
+                            <div class="alert alert-success col-sm-12"><%= messages.message %></div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<% include ../component/adminBottom %>

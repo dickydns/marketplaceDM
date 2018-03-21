@@ -1,0 +1,49 @@
+<%  include ../component/header %>
+<%  include ../component/navbar %>
+
+<section class="product-card" style="overflow:hidden;">
+      <div class="">
+          <div class="col-sm-5">
+            <div class="product-card__slider" >
+                <a target="_blank" href="/images/<%= results.picture %>"  class="prettyPhoto"> <img src="/images/<%= results.picture %>"  width="460" title="Foto" alt="img"> </a>    
+            </div>
+          </div>
+        <!-- end product-card__slider --> 
+      </div>
+      <div class="col-sm-7">
+        <div class="product-card__main">
+                <h1 class="product-card__name"><%= results.name %></h1>
+                <div class="product-card__category"><a href="#"><%= results.category_name %></a></div>
+               
+                
+                <div class="product-card__availability"><i class="icon fa fa-check-circle"></i>Available in Stock</div>
+                <div class="product-card__price"> <span class="product-card__price-new">Rp. <%= results.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") %> </span>  </div>
+                <div class="product-card__description">
+                    <p><%= results.description %></p>
+                </div>
+                <footer class="card-btns">
+            
+                        <% if(user.id_user > 0) { %>
+        
+                        <a href="/add_cart/<%= results.id_product %>" class="products-btns__btn products-btns__add"><i class="icon icon-bag color_primary" aria-hidden="true"></i> Add to cart</a>
+                        
+                        <% } else { %>
+                        <a data-toggle="modal" data-target="#login" href="/login" class="products-btns__btn products-btns__add"><i class="icon icon-bag color_primary" aria-hidden="true"></i> Login First</a>
+                        
+                            
+                        <% } %>
+                </footer>
+        </div>
+    
+    </div>
+    
+    <!-- end row -->
+</section>
+
+
+    
+    <!-- footer / copyright -->
+    <% include ../component/copyright %>
+    
+    <!-- end product-card -->
+<% include ../component/footer %>
